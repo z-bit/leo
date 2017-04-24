@@ -4,15 +4,14 @@ import { Firma } from '../models/firma.model';
 import { type } from './type-cache.util';
 
 export const ActionTypes = {
+    GET_FIRMA:       type('[Firma] Get Firma'),
+    GET_FIRMA_OK:    type('[Firma] Get Firma Ok'),
     GET_FIRMA_ERROR: type('[Firma] Get Firma Error'),
-    GET_FIRMA: type('[Firma] Get Firma'),
-    GET_FIRMA_OK: type('[Firma] Get Firma Ok'),
-   
 };
 
 export class GetFirmaAction implements Action{
     type = ActionTypes.GET_FIRMA;
-    constructor(public payload: string) {}
+    constructor(public payload: void) {}
 }
 
 export class GetFirmaOkAction implements Action{

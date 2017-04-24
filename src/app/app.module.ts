@@ -35,8 +35,11 @@ import { HomeContainer } from './containers/home.container';
 
 import { LoginComponent } from './components/login.component';
 import { ToolbarComponent } from './components/toolbar.component';
+import { FirmaDialogComponent } from './components/firma-dialog.component';
 
+import { DialogService } from './services/dialog.servive';
 import { FirmaService } from './services/firma.service';
+
 
 
 @NgModule({
@@ -47,6 +50,11 @@ import { FirmaService } from './services/firma.service';
         
         LoginComponent,
         ToolbarComponent,
+        FirmaDialogComponent,
+        
+    ],
+    entryComponents: [
+        FirmaDialogComponent,
         
     ],
     imports: [
@@ -55,15 +63,17 @@ import { FirmaService } from './services/firma.service';
         HttpModule,
         MaterialModule,
         BrowserAnimationsModule,
-AppRouting,
+        AppRouting,
+        
         StoreModule.provideStore(reducer),
+        EffectsModule.run(FirmaEffects),
         RouterStoreModule.connectRouter(),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
-        EffectsModule.run(FirmaEffects),
         DBModule.provideDB(schema),
         
     ],
     providers: [
+        DialogService,
         FirmaService,
         { provide: APP_CONFIG, useValue: AppConfig },
         

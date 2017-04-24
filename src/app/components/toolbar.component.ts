@@ -1,35 +1,65 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MdDialog, MdDialogRef} from '@angular/material';
+import { DialogService } from '../services/dialog.servive';
+
+
+import { Firma } from '../models/firma.model';
+
 
 import { ToolbarLink } from '../models/toolbar-link.model';
+
 
 @Component({
     selector: 'cat-toolbar',
     template: `
         <md-toolbar>
+            <md-icon>home</md-icon>
+            &nbsp;&nbsp;
+            {{caption}}
+            &nbsp;&nbsp;
             <div class="left">
-                <md-icon>menu</md-icon>
-                &nbsp;&nbsp;
-                {{caption}}
-                &nbsp;&nbsp;
-                {{banner}}
-                &nbsp;&nbsp;
+               
+               
+                <img height="50" src="../../assets/cat_450x340.png">
+               
             </div>
-            
+            &nbsp;&nbsp;
+            {{banner}}
+            &nbsp;&nbsp;
             <span class="fill"></span>
             
-            <md-icon
-                (click)="logout.emit()"
-                mdTooltip="abmelden"
-            >account_circle</md-icon>
+            <div    class="firma"
+                    *ngIf="firma.firma.name"
+                    (click) = "openFirmaDialog()"
+            >
+               
+                <md-icon>business</md-icon>
+                {{ firma.firma.name }}
+            </div>
+            &nbsp; &nbsp;   &nbsp;
+            
+            <div class="user" (click)="openUserDialog()">
+                <md-icon>face</md-icon>
+              
+                Name, Vormane
+            </div>
+            &nbsp; &nbsp;
+            <md-icon (click)="logout.emit()">close</md-icon>
         </md-toolbar>
     `,
     styles: [`
-         md-icon:hover {
+        .firma:hover {
+            cursor: pointer;
+        }
+        .user:hover {
+            cursor: pointer;
+        }
+        md-icon:hover {
               cursor: pointer;
          }
          md-toolbar {
-         	  background-color: darkslategray;
-              color: seashell; 
+         	  background-color: lightsteelblue;
+              color: black;
          }
          .fill {
              flex: 1 1 auto;
@@ -39,8 +69,20 @@ import { ToolbarLink } from '../models/toolbar-link.model';
 export class ToolbarComponent {
     @Input() caption: string;
     @Input() banner: string;
+    @Input() firma;
     @Output() logout =  new EventEmitter();
     
+    constructor(
+        public dialogService: DialogService
+    ) {}
+    
+    openFirmaDialog() {
+        this.dialogService.firmaDialog(this.firma);
+    }
+    
+    openUserDialog() {
+    
+    }
     
 }
 

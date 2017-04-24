@@ -1,11 +1,12 @@
 export interface Firma {
-//    error: string;
-    fa: string;
-    fi: string;
-    name: string;       // Name von Firma/Filiale
-    fils: string[];
-    ip: string;
-    client: string;     // Name des Client-PC
+  
+        fa: string;
+        fi: string;
+        name: string;       // Name von Firma/Filiale
+        fils: string[];
+        ip: string;
+        client: string;     // Client-PC
+    
 }
 
 /*

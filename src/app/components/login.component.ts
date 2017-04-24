@@ -10,13 +10,13 @@ import { Login } from '../models/login.model';
         <h1>bitte anmelden ...</h1>
         
         <md-card>
-            <md-card-title>mit Personalnummer</md-card-title>
+            <md-card-title>mit Personal-Nummer</md-card-title>
             <md-card-subtitle>
                 ausreichend für die meisten Arbeiten
             </md-card-subtitle>
             <md-input-container>
                 <input mdInput #pnrInput
-                       placeholder="Personalnummer"
+                       placeholder="Personal-Nummer"
                        type="text"
                        tabindex="1"
                        (keyup.enter)="sendPnr()" >

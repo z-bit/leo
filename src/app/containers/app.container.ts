@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Firma } from '../models/firma.model';
 
@@ -9,6 +9,8 @@ import * as firmaActions from '../store/firma.actions';
 
 
 import { ToolbarComponent } from '../components/toolbar.component';
+import { FirmaDialogComponent } from '../components/firma-dialog.component';
+
 
 
 @Component({
@@ -19,17 +21,19 @@ import { ToolbarComponent } from '../components/toolbar.component';
         <cat-toolbar
             caption="Cat"
             banner="Care Angular Tools"
+            [firma]="firma$ | async"
             (logout)="logout()"
         ></cat-toolbar>
     
         <md-grid-list cols="5" rowHeight="{{ratio}}">
         
-            <md-grid-tile
+            <md-grid-tile class="scroll-vertical"
                 [colspan]="1"
                 [rowspan]="5"
                 [style.background]="'seashell'"
             >
                 <div>
+                   
                     <cat-kopf
                         *ngIf="loginIsVisible"
                     ></cat-kopf>
@@ -52,7 +56,10 @@ import { ToolbarComponent } from '../components/toolbar.component';
             padding: 10px;
             height: 100%;
             width: 100%;
-          
+        }
+        .scroll-vertical {
+            overflow-y: scroll;
+        
         }    
        
     `]
@@ -64,13 +71,24 @@ export class AppContainer{
     //md-grid-list cols = md-grid-tile [rowspan]
     ratio = `${this.ww}:${this.wh}`;
     
-    firma$: Observable<Firma>;
-    
+    @Output() firma$: Observable<Firma>;
+    //a$: Observable<Firma>;
     constructor(
         private store: Store<storeIndex.State>
     ) {
-        store.select(storeIndex.getFirmaState);
-        store.dispatch(new firmaActions.GetFirmaAction(''));
+        this.firma$ = store.select('firma');
+        //this.firma$ = store.select(storeIndex.getFirma);
+        //store.select(storeIndex.getFirmaState);
+        //store.dispatch(new firmaActions.GetFirmaAction(''));
+        /*
+        this.firma$.subscribe(
+            firma => console.log('AppContainer', firma)
+        );
+        this.a$ = store.select('firma');
+        this.a$.subscribe(
+            firma => console.log('AppContainer a$', firma)
+        );
+        */
     }
     
     logout() {
