@@ -8,12 +8,12 @@ import { Firma } from '../models/firma.model';
         <md-card>
             <md-card-title>Firma</md-card-title>
             <table>
-               <tr><td><small>Firma:</small>         </td><td> {{ firma.firma.fa }}</td></tr>
-               <tr><td><small>Filiale:</small>       </td><td> {{ firma.firma.fi }}</td></tr>
-               <tr><td><small>Name:</small>          </td><td> {{ firma.firma.name }}</td></tr>
-               <tr><td><small>alle Filialen:</small> </td><td> {{ firma.firma.fils }}</td></tr>
-               <tr><td><small>IP-Aressen:</small>    </td><td> {{ firma.firma.ip }}</td></tr>
-               <tr><td><small>Arbeitsplatz:</small>  </td><td> {{ firma.firma.client }}</td> </tr>
+               <tr><td><small>Firma:</small>         </td><td> {{ firma.fa }}</td></tr>
+               <tr><td><small>Filiale:</small>       </td><td> {{ firma.fi }}</td></tr>
+               <tr><td><small>Name:</small>          </td><td> {{ firma.name }}</td></tr>
+               <tr><td><small>alle Filialen:</small> </td><td> {{ firma.fils }}</td></tr>
+               <tr><td><small>IP-Aressen:</small>    </td><td> {{ firma.ip }}</td></tr>
+               <tr><td><small>Arbeitsplatz:</small>  </td><td> {{ firma.client }}</td> </tr>
             </table>
             <md-card-actions>
                 <span class="right">

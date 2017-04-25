@@ -19,7 +19,7 @@ import * as firmaActions from './firma.actions';
 export class FirmaEffects {
     @Effect() firma$: Observable<Action> = this.actions$
         .ofType(firmaActions.ActionTypes.GET_FIRMA)
-        .debounceTime(300)
+    //    .debounceTime(300)
         .map(toPayload)
         .switchMap( () => {
             console.log('FirmaEffects', this.firmaService.getFirma());

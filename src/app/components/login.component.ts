@@ -87,7 +87,7 @@ import { Login } from '../models/login.model';
 export class LoginComponent implements OnInit{
     @Output() loginEvent = new EventEmitter();
     @Output() pnrEvent = new EventEmitter();
-    login: Login = {name: '', pass: ''};
+    login: Login = {name: '', pass: '', fa: ''};
     
     showSpinPnr: boolean = false;
     @ViewChild('pnrInput') pnrInput;

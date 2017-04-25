@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MdDialog, MdDialogRef} from '@angular/material';
-import { DialogService } from '../services/dialog.servive';
+import { DialogService } from '../services/dialog.service';
 
 
 import { Firma } from '../models/firma.model';
@@ -29,22 +29,22 @@ import { ToolbarLink } from '../models/toolbar-link.model';
             <span class="fill"></span>
             
             <div    class="firma"
-                    *ngIf="firma.firma.name"
-                    (click) = "openFirmaDialog()"
-            >
-               
+                    *ngIf="firma.name"
+                    (click) = "openFirmaDialog()">
                 <md-icon>business</md-icon>
-                {{ firma.firma.name }}
+                {{ firma.name }}
             </div>
-            &nbsp; &nbsp;   &nbsp;
+            &nbsp; &nbsp; &nbsp;
             
-            <div class="user" (click)="openUserDialog()">
-                <md-icon>face</md-icon>
-              
-                Name, Vormane
+            <div *ngIf="user.name">
+                <span class="user"
+                     (click)="openUserDialog()">
+                    <md-icon>face</md-icon>
+                    {{ user.name }}
+                    &nbsp;
+                </span>
+                <md-icon (click)="logout.emit()">close</md-icon>
             </div>
-            &nbsp; &nbsp;
-            <md-icon (click)="logout.emit()">close</md-icon>
         </md-toolbar>
     `,
     styles: [`
@@ -70,6 +70,7 @@ export class ToolbarComponent {
     @Input() caption: string;
     @Input() banner: string;
     @Input() firma;
+    @Input() user;
     @Output() logout =  new EventEmitter();
     
     constructor(
@@ -81,7 +82,7 @@ export class ToolbarComponent {
     }
     
     openUserDialog() {
-    
+        this.dialogService.userDialog(this.user);
     }
     
 }

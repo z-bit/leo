@@ -9,8 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRouting } from './app.routing';
 
-
-
 import { APP_CONFIG, AppConfig } from './app.config';
 
 import { StoreModule } from '@ngrx/store';
@@ -18,15 +16,13 @@ import { reducer } from './store/index';
 
 import { EffectsModule } from '@ngrx/effects';
 import { FirmaEffects } from './store/firma.effects';
+import { UserEffects } from './store/user.effects';
 
 import { DBModule } from '@ngrx/db';
 import { schema } from './store/cat.schema';
 
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-
-
 
 import { AppContainer} from './containers/app.container';
 import { KopfContainer } from './containers/kopf.container';
@@ -36,11 +32,12 @@ import { HomeContainer } from './containers/home.container';
 import { LoginComponent } from './components/login.component';
 import { ToolbarComponent } from './components/toolbar.component';
 import { FirmaDialogComponent } from './components/firma-dialog.component';
+import { LoginDialog } from './dialogs/login.dialog';
+import { UserDialog } from './dialogs/user.dialog';
 
-import { DialogService } from './services/dialog.servive';
+import { DialogService } from './services/dialog.service';
 import { FirmaService } from './services/firma.service';
-
-
+import { UserService } from './services/user.service';
 
 @NgModule({
     declarations: [
@@ -51,10 +48,14 @@ import { FirmaService } from './services/firma.service';
         LoginComponent,
         ToolbarComponent,
         FirmaDialogComponent,
+        LoginDialog,
+        UserDialog,
         
     ],
     entryComponents: [
         FirmaDialogComponent,
+        LoginDialog,
+        UserDialog,
         
     ],
     imports: [
@@ -67,6 +68,7 @@ import { FirmaService } from './services/firma.service';
         
         StoreModule.provideStore(reducer),
         EffectsModule.run(FirmaEffects),
+        EffectsModule.run(UserEffects),
         RouterStoreModule.connectRouter(),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
         DBModule.provideDB(schema),
@@ -75,6 +77,7 @@ import { FirmaService } from './services/firma.service';
     providers: [
         DialogService,
         FirmaService,
+        UserService,
         { provide: APP_CONFIG, useValue: AppConfig },
         
     ],

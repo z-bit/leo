@@ -1,6 +1,11 @@
 import { Component, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs/Observable';
 import { Firma } from '../models/firma.model';
+import { User } from '../models/user .model';
+import * as userActions from '../store/user.actions';
+
 
 import { Store } from '@ngrx/store';
 import * as storeIndex from '../store/index';
@@ -22,9 +27,11 @@ import { FirmaDialogComponent } from '../components/firma-dialog.component';
             caption="Cat"
             banner="Care Angular Tools"
             [firma]="firma$ | async"
+            [user]= "user$  | async"
             (logout)="logout()"
         ></cat-toolbar>
     
+        <!--
         <md-grid-list cols="5" rowHeight="{{ratio}}">
         
             <md-grid-tile class="scroll-vertical"
@@ -49,6 +56,8 @@ import { FirmaDialogComponent } from '../components/firma-dialog.component';
                 
             </md-grid-tile>
         </md-grid-list>
+        -->
+        <router-outlet></router-outlet>
     `,
     styles: [`
         div {
@@ -65,18 +74,19 @@ import { FirmaDialogComponent } from '../components/firma-dialog.component';
     `]
 })
 export class AppContainer{
-    loginIsVisible: boolean = true;
     ww = window.innerWidth;
     wh = window.innerHeight - 64;
     //md-grid-list cols = md-grid-tile [rowspan]
     ratio = `${this.ww}:${this.wh}`;
     
     @Output() firma$: Observable<Firma>;
-    //a$: Observable<Firma>;
+    @Output() user$: Observable<User>;
     constructor(
-        private store: Store<storeIndex.State>
+        private store: Store<storeIndex.State>,
+        private router: Router
     ) {
         this.firma$ = store.select('firma');
+        this.user$ = store.select('user');
         //this.firma$ = store.select(storeIndex.getFirma);
         //store.select(storeIndex.getFirmaState);
         //store.dispatch(new firmaActions.GetFirmaAction(''));
@@ -92,7 +102,9 @@ export class AppContainer{
     }
     
     logout() {
-        this.loginIsVisible = false;
+        console.log('logout');
+        this.store.dispatch(new userActions.LogoutAction(null));
+        this.router.navigate(['/home']);
     }
     
     

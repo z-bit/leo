@@ -5,7 +5,6 @@ export interface State {
     firma: Firma
 }
 
-
 const initialState: State = {
     firma: {
         fa: '33',
@@ -27,18 +26,6 @@ export function reducer (
         }
         case firma.ActionTypes.GET_FIRMA_OK: {
             const firma = action.payload;
-                
-                //test
-              
-                //const firma2 = initialState;
-                //console.log(firma2);
-                //firma2.firma.fa =firma.fa;
-                //firma2.firma.fi = payload.fi;
-                //firma.firma.name = payload.name;
-                //firma.firma.fils = payload.fils;
-                //firma.firma.ip = payload.ip;
-                //firma.firma.client = payload.client;
-            
             console.log('GET_FIRMA_OK', firma);
             return Object.assign({}, state, firma);
         }

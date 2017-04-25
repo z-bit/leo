@@ -8,14 +8,17 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
 import * as firmaReducer from './firma.reducer';
+import * as userReducer from './user.reducer';
 
 export interface State {
     firma: firmaReducer.State,
+    user: userReducer.State,
     
 }
 
 const reducers = {
     firma: firmaReducer.reducer,
+    user: userReducer.reducer,
     
 };
 
@@ -35,3 +38,6 @@ export function reducer(state: any, action: any) {
 
 export const getFirmaState = (state: State) => state.firma;
 export const getFirma = createSelector(getFirmaState, firmaReducer.getFirma);
+
+export const getUserState = (state: State) => state.user;
+export const getUser = createSelector(getUserState, userReducer.getUser);
