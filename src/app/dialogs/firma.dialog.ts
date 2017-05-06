@@ -12,7 +12,7 @@ import { Firma } from '../models/firma.model';
                <tr><td><small>Filiale:</small>       </td><td> {{ firma.fi }}</td></tr>
                <tr><td><small>Name:</small>          </td><td> {{ firma.name }}</td></tr>
                <tr><td><small>alle Filialen:</small> </td><td> {{ firma.fils }}</td></tr>
-               <tr><td><small>IP-Aressen:</small>    </td><td> {{ firma.ip }}</td></tr>
+               <tr><td><small>IP-Adressen:</small>   </td><td> {{ firma.ip }}</td></tr>
                <tr><td><small>Arbeitsplatz:</small>  </td><td> {{ firma.client }}</td> </tr>
             </table>
             <md-card-actions>
@@ -41,10 +41,10 @@ import { Firma } from '../models/firma.model';
         }
     `]
 })
-export class FirmaDialogComponent {
+export class FirmaDialog {
     @Input() firma: Firma;
     
     constructor(
-        public dialogRef: MdDialogRef<FirmaDialogComponent>
+        public dialogRef: MdDialogRef<FirmaDialog>
     ) {}
 }

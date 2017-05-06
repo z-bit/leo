@@ -12,10 +12,7 @@ import { Observable } from 'rxjs/Observable';
     selector: 'cat-kopf',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-       <cat-login
-            (pnrEvent)="loginWithPnr($event)"
-            (loginEvent)="login($event)"
-        ></cat-login>
+    
     `
 })
 export class KopfContainer {
@@ -24,6 +21,7 @@ export class KopfContainer {
         private store: Store<storeIndex.State>
     ) {
         this.firma$ = store.select('firma');
+        //this.user$ = store.select('user');
     }
     loginIsVisible: boolean;
     

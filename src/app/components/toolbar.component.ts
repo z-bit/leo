@@ -1,27 +1,18 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MdDialog, MdDialogRef} from '@angular/material';
 import { DialogService } from '../services/dialog.service';
-
-
-import { Firma } from '../models/firma.model';
-
-
-import { ToolbarLink } from '../models/toolbar-link.model';
-
 
 @Component({
     selector: 'cat-toolbar',
     template: `
         <md-toolbar>
+            <md-icon (click)="sidenav.emit()">menu</md-icon>
+            &nbsp;&nbsp;
             <md-icon>home</md-icon>
             &nbsp;&nbsp;
             {{caption}}
             &nbsp;&nbsp;
             <div class="left">
-               
-               
                 <img height="50" src="../../assets/cat_450x340.png">
-               
             </div>
             &nbsp;&nbsp;
             {{banner}}
@@ -72,6 +63,7 @@ export class ToolbarComponent {
     @Input() firma;
     @Input() user;
     @Output() logout =  new EventEmitter();
+    @Output() sidenav = new EventEmitter();
     
     constructor(
         public dialogService: DialogService

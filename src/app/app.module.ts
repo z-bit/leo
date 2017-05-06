@@ -25,13 +25,13 @@ import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppContainer} from './containers/app.container';
-import { KopfContainer } from './containers/kopf.container';
+//import { KopfContainer } from './containers/kopf.container';
 import { HomeContainer } from './containers/home.container';
 
 
-import { LoginComponent } from './components/login.component';
+//import { LoginComponent } from './components/login.component';
 import { ToolbarComponent } from './components/toolbar.component';
-import { FirmaDialogComponent } from './components/firma-dialog.component';
+import { FirmaDialog } from './dialogs/firma.dialog';
 import { LoginDialog } from './dialogs/login.dialog';
 import { UserDialog } from './dialogs/user.dialog';
 
@@ -42,19 +42,20 @@ import { UserService } from './services/user.service';
 @NgModule({
     declarations: [
         AppContainer,
-        KopfContainer,
+        //KopfContainer,
         HomeContainer,
         
-        LoginComponent,
+        //LoginComponent,
         ToolbarComponent,
-        FirmaDialogComponent,
+        
         LoginDialog,
+        FirmaDialog,
         UserDialog,
         
     ],
     entryComponents: [
-        FirmaDialogComponent,
         LoginDialog,
+        FirmaDialog,
         UserDialog,
         
     ],

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { User } from '../models/user .model';
+import { User } from '../models/user.model';
 import * as user from './user.actions';
 
 export interface State {

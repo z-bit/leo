@@ -1,6 +1,6 @@
 import { DBSchema } from '@ngrx/db';
 import { Firma } from '../models/firma.model';
-import { User } from '../models/user .model';
+import { User } from '../models/user.model';
 
 
 

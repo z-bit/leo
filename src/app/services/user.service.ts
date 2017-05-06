@@ -1,5 +1,5 @@
 import {Inject, Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/mergeMap';
@@ -40,10 +40,13 @@ export class UserService {
                 .take(1)
             ;
         } else {
+            let data = new URLSearchParams();
+            data.append('benutzer', login.name);
+            data.append('passwort', login.pass);
             return this.http
-                .get(`${this.appConfig.careApiUrl}/firma`)
+                .post(`${this.appConfig.careApiUrl}/login/${login.fa}`, data)
                 .map ( res => {
-                    console.log('Firma Service - response.json(): ', res.json());
+                    console.log('UserService - response.json(): ', res.json());
                     
                     const time = res.json().time;
                     //todo log time
