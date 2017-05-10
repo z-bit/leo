@@ -15,7 +15,7 @@ import {MdMenuTrigger} from "@angular/material";
                     *ngFor="let module of modules"
                     (click)="selectedFromMenu.emit(module)"
                 >
-                    <img height="20px" src="../../assets/{{module}}.png">
+                    <img height="20px" src="assets/{{module}}.png">
                     <span>&nbsp;&nbsp;{{module}}</span>
                 </button>
             </md-menu>
@@ -23,7 +23,7 @@ import {MdMenuTrigger} from "@angular/material";
             {{caption}}
             &nbsp;&nbsp;
             <div class="left">
-                <img height="50" src="../../assets/cat_450x340.png">
+                <img height="50" src="assets/cat_450x340.png">
             </div>
             &nbsp;&nbsp;
             {{banner.module}}
