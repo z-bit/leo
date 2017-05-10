@@ -9,16 +9,18 @@ import { combineReducers } from '@ngrx/store';
 
 import * as firmaReducer from './firma.reducer';
 import * as userReducer from './user.reducer';
+import * as moduleReducer from './module.reducer';
 
 export interface State {
     firma: firmaReducer.State,
     user: userReducer.State,
-    
+    module: moduleReducer.State,
 }
 
 const reducers = {
     firma: firmaReducer.reducer,
     user: userReducer.reducer,
+    module: moduleReducer.reducer,
     
 };
 
@@ -41,3 +43,6 @@ export const getFirma = createSelector(getFirmaState, firmaReducer.getFirma);
 
 export const getUserState = (state: State) => state.user;
 export const getUser = createSelector(getUserState, userReducer.getUser);
+
+export const getModuleState = (state: State) => state.module;
+export const getModule = createSelector(getModuleState, moduleReducer.getModule);

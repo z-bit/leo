@@ -24,12 +24,13 @@ import { schema } from './store/cat.schema';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { AppContainer} from './containers/app.container';
-//import { KopfContainer } from './containers/kopf.container';
+import { AppContainer } from './containers/app.container';
+
 import { HomeContainer } from './containers/home.container';
+import { EccnetModule } from './modules/eccnet/eccnet.module';
 
 
-//import { LoginComponent } from './components/login.component';
+import { SidenavComponent } from './components/sidenav.component';
 import { ToolbarComponent } from './components/toolbar.component';
 import { FirmaDialog } from './dialogs/firma.dialog';
 import { LoginDialog } from './dialogs/login.dialog';
@@ -42,10 +43,9 @@ import { UserService } from './services/user.service';
 @NgModule({
     declarations: [
         AppContainer,
-        //KopfContainer,
         HomeContainer,
         
-        //LoginComponent,
+        SidenavComponent,
         ToolbarComponent,
         
         LoginDialog,
@@ -73,6 +73,8 @@ import { UserService } from './services/user.service';
         RouterStoreModule.connectRouter(),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
         DBModule.provideDB(schema),
+        
+        EccnetModule,
         
     ],
     providers: [

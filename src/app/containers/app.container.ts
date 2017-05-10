@@ -1,9 +1,11 @@
-import { Component, Output, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { Firma } from '../models/firma.model';
 import { User } from '../models/user.model';
+import { Module } from '../models/module.model';
+
 import * as userActions from '../store/user.actions';
 
 import { Store } from '@ngrx/store';
@@ -13,62 +15,96 @@ import * as storeIndex from '../store/index';
     selector: 'app-root',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <md-sidenav-container>
-        <cat-toolbar
-            caption="Cat"
-            banner="Care Angular Tools"
-            [firma]="firma$ | async"
-            [user]= "user$  | async"
-            (logout)="logout()"
-            (sidenav)="sidenavOpen()"
-        ></cat-toolbar>
- 
-        <router-outlet></router-outlet>
-
-        
-            <md-sidenav #sidenav class="sidenav">
-                <md-icon (click)="sidenav.close()">menu</md-icon>
-                &nbsp;&nbsp;
-                <md-icon>home</md-icon>
-                &nbsp;&nbsp;
-                Cat
-                &nbsp;&nbsp;
-                <ul>
-                    <li>Jolly Good!</li>
-                </ul>
-                
-            </md-sidenav>
-        </md-sidenav-container>
+        <section>
+            <header>
+                <cat-toolbar
+                    caption="Cat"
+                    [banner]="module$ | async"
+                    [firma]="firma$ | async"
+                    [user]= "user$  | async"
+                    [modules]="moduleList"
+                    (logout)="logout()"
+                    (sidenav)="sidenavToggle()"
+                    (selectedFromMenu)="navigate($event)"
+                ></cat-toolbar>
+            </header>
+            <main>
+                <md-sidenav-container>
+                    
+                    <router-outlet></router-outlet>
+                    
+                    <cat-sidenav
+                        [isOpen]="sidenavIsOpen"
+                        (closed)="sidenavToggle()"
+                    ></cat-sidenav>
+                </md-sidenav-container>
+            </main>
+            <footer>Schmolck GmbH & Co. KG</footer>
+        </section>
     `,
     styles: [`
-        .sidenav {
-            padding: 20px;
-            background-color: lightsteelblue;
-            
+        section {
+            min-height: 98vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            /* no flex rules */
+        }
+        main {
+            flex: 1 0 auto;
+            overflow: auto;
+        }
+        footer {
+            background: darkblue;
+            color: white;
+            padding: 10px;
+            font-family: "Arial";
+            font-weight: bold;
         }
     `]
 })
 export class AppContainer{
+    @Input() selectedFromMenu;
     @Output() firma$: Observable<Firma>;
     @Output() user$: Observable<User>;
-    
-    @ViewChild('sidenav') sidenav;
-    
+    @Output() module$: Observable<Module>;
+    @Output() modules: string[];
+    @Output() loggedOut = new EventEmitter();
+    private sidenavIsOpen: boolean = false;
+    moduleList: string[] = [
+        'Home',
+        'Excel',
+        'Inventur',
+        'ECCnet',
+        'Ueben'
+    ];
+   
+    private w: number;
+    private h: number;
     constructor(
         private store: Store<storeIndex.State>,
         private router: Router
     ) {
         this.firma$ = store.select('firma');
         this.user$ = store.select('user');
+        this.module$ = store.select('module');
+        this.w = window.innerWidth;
+        this.h = window.innerHeight;
+        
     }
     
     logout() {
-        console.log('logout');
         this.store.dispatch(new userActions.LogoutAction(null));
         this.router.navigate(['/home']);
     }
     
-    sidenavOpen() {
-        this.sidenav.open()
+    navigate(path) {
+        path = path.toLowerCase();
+        this.router.navigate([path], {queryParams: {init: true}});
+    }
+    
+    sidenavToggle() {
+        this.sidenavIsOpen = !this.sidenavIsOpen;
     }
 }

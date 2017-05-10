@@ -1,13 +1,24 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { DialogService } from '../services/dialog.service';
+import {MdMenuTrigger} from "@angular/material";
 
 @Component({
     selector: 'cat-toolbar',
     template: `
         <md-toolbar>
-            <md-icon (click)="sidenav.emit()">menu</md-icon>
-            &nbsp;&nbsp;
-            <md-icon>home</md-icon>
+            <button md-icon-button [mdMenuTriggerFor]="menu">
+                <md-icon>menu</md-icon>
+            </button>
+            <md-menu #menu="mdMenu">
+                <button
+                    md-menu-item
+                    *ngFor="let module of modules"
+                    (click)="selectedFromMenu.emit(module)"
+                >
+                    <img height="20px" src="../../assets/{{module}}.png">
+                    <span>&nbsp;&nbsp;{{module}}</span>
+                </button>
+            </md-menu>
             &nbsp;&nbsp;
             {{caption}}
             &nbsp;&nbsp;
@@ -15,14 +26,16 @@ import { DialogService } from '../services/dialog.service';
                 <img height="50" src="../../assets/cat_450x340.png">
             </div>
             &nbsp;&nbsp;
-            {{banner}}
+            {{banner.module}}
             &nbsp;&nbsp;
             <span class="fill"></span>
             
             <div    class="firma"
                     *ngIf="firma.name"
                     (click) = "openFirmaDialog()">
-                <md-icon>business</md-icon>
+                <button md-icon-button>
+                    <md-icon>business</md-icon>
+                </button>
                 {{ firma.name }}
             </div>
             &nbsp; &nbsp; &nbsp;
@@ -30,11 +43,15 @@ import { DialogService } from '../services/dialog.service';
             <div *ngIf="user.name">
                 <span class="user"
                      (click)="openUserDialog()">
-                    <md-icon>face</md-icon>
+                    <button md-icon-button>
+                        <md-icon>face</md-icon>
+                    </button>
                     {{ user.name }}
                     &nbsp;
                 </span>
-                <md-icon (click)="logout.emit()">close</md-icon>
+                <button md-icon-button  (click)="logout.emit()">
+                    <md-icon>close</md-icon>
+                </button>
             </div>
         </md-toolbar>
     `,
@@ -55,18 +72,28 @@ import { DialogService } from '../services/dialog.service';
          .fill {
              flex: 1 1 auto;
          }
+        button {
+            font-size: 20px;
+        }
     `]
 })
 export class ToolbarComponent {
     @Input() caption: string;
-    @Input() banner: string;
+    @Input() banner;
+    @Input() modules: string[];
+    
     @Input() firma;
     @Input() user;
     @Output() logout =  new EventEmitter();
-    @Output() sidenav = new EventEmitter();
+    @Output() selectedFromMenu = new EventEmitter();
+    
+    @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
+    
+    
     
     constructor(
-        public dialogService: DialogService
+        public dialogService: DialogService,
+        
     ) {}
     
     openFirmaDialog() {
