@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+import { AgGridModule } from 'ag-grid-angular/main';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -73,7 +75,7 @@ import { UserService } from './services/user.service';
         RouterStoreModule.connectRouter(),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
         DBModule.provideDB(schema),
-        
+        AgGridModule.withComponents([]),
         EccnetModule,
         
     ],
